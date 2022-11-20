@@ -1,5 +1,5 @@
 import type { Load } from '@sveltejs/kit';
-import { getYears } from '$lib/narrowDown';
+import { getYears } from '$lib/getFiles';
 
 export const load: Load = () => {
   const years = getYears();
