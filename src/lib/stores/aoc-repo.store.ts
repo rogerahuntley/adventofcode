@@ -38,7 +38,7 @@ const jsFiles = rawFiles.data.tree
 const files = {} as { [key: number]: { [key: number]: { [key: string]: string } } };
 
 // now that we have all our valid .js files, lets build our year / months array
-for (var file of jsFiles) {
+for (const file of jsFiles) {
   const fileContent = await getFile(file);
   const path = file.split('/');
   const [year, day, name]: [number, number, string] = path;
