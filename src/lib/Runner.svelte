@@ -21,8 +21,8 @@
 
 <div id="runner">
   <div id="textareas">
-    <textarea bind:value={input} />
-    <textarea bind:value={script} {readonly} />
+    <textarea id="input" bind:value={input} />
+    <textarea id="script" bind:value={script} {readonly} />
   </div>
   <button on:click={run}>run code</button>
   <input bind:value={result} readonly />
@@ -39,8 +39,14 @@
       flex-direction: row;
     }
     textarea {
+      &#input {
+        width: 30vw;
+      }
+      &#script {
+        width: 60vw;
+      }
       height: 70vh;
-      width: 45vw;
+      resize: none;
     }
 
     button,

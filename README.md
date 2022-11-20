@@ -1,38 +1,17 @@
-# create-svelte
+# adventofcode
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+this is the front end showcase for my advent of code solutions, built w/ sveltekit and hosted on neocities
 
-## Creating a project
+you can view a live version of the site at [adventofcode.neocities.org](https://adventofcode.neocities.org)
 
-If you're seeing this, you've probably already done this step. Congrats!
+my repo for solutions is hosted seperately, you can find that at [adventofcode-solutions](https://github.com/rogerahuntley/adventofcode-solutions)
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+### building
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+you can build for yourself by cloning the repo
 
-## Developing
+> npm i
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+add the GITHUB API KEY to .env (queries against github repo for solutions on build)
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+> npm run build

@@ -35,16 +35,25 @@ const jsFiles = rawFiles.data.tree
   })
   .map((f) => f.path);
 
-const files = {} as { [key: number]: { [key: number]: { [key: string]: string } } };
+const solutions = {} as { [key: number]: { [key: number]: { [key: string]: string } } };
 
 // now that we have all our valid .js files, lets build our year / months array
 for (const file of jsFiles) {
   const fileContent = await getFile(file);
   const path = file.split('/');
   const [year, day, name]: [number, number, string] = path;
-  const yearObj = (files[Number(year)] ||= {});
+  const yearObj = (solutions[Number(year)] ||= {});
   const daysObject = (yearObj[Number(day)] ||= {});
   daysObject[name] = fileContent;
 }
 
-export { files };
+const inputs = {} as { [key: string]: { [key: string]: string } };
+
+for (const year of Object.keys(solutions)) {
+  inputs[year] = {};
+  for (const day of Object.keys(solutions[Number(year)])) {
+    inputs[year][day] = await getFile(`${year}/${day}/input.txt`);
+  }
+}
+
+export { solutions, inputs };
