@@ -1,20 +1,20 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
-  export let script = '';
-  export let input = '';
-  export let readonly = true;
-  let result = '';
+  import { createEventDispatcher } from 'svelte'
+  const dispatch = createEventDispatcher()
+  export let script = ''
+  export let input = ''
+  export let readonly = true
+  let result = ''
   const run = () => {
-    result = new Function(`let input = \`${input}\`;\n${script}`)();
+    result = new Function(`let input = \`${input}\`;\n${script}`)()
     dispatch('result', {
-      text: result
-    });
-  };
+      text: result,
+    })
+  }
 
   const toggleEdit = () => {
-    readonly = !readonly;
-  };
+    readonly = !readonly
+  }
 </script>
 
 <button on:click={toggleEdit}>toggle edit</button> can edit: {!readonly}

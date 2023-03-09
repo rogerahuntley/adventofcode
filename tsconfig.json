@@ -10,9 +10,11 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
+    "ignoreDeprecations": "5.0",
+    "isolatedModules": false,
     "paths": {
-      "$lib": ["src/lib"],
-      "$lib/*": ["src/lib/*"]
+      "$lib": ["./src/lib"],
+      "$lib/*": ["./src/lib/*"]
     }
   }
 }
