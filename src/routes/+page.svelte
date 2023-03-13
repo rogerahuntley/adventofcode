@@ -1,10 +1,12 @@
 <script lang="ts">
-  import Runner from '$lib/Runner.svelte'
+  import Sidebar from '$lib/components/layout/Sidebar.svelte'
+  import Runner from '$lib/components/Runner.svelte'
+  import SolutionSelect from '$lib/components/SolutionSelect.svelte'
   import { solutionHandler, fileHandler } from '$lib/getFilesClient'
   export let data
   const { solutions, solutionMap, inputs } = data
-  const sol = solutionHandler(solutionMap)
   const inp = fileHandler(solutions, inputs)
+  const sol = solutionHandler(solutionMap)
 
   let year: number | undefined
   let day: number | undefined
@@ -13,49 +15,46 @@
   let script: string | undefined
   let input: string | undefined
 
-  $: {
-    if (year && day && !sol.getDays(year).includes(day)) {
-      day = sol.getDays(year)[0]
-    }
-    if (year && day && solution && !sol.getSolutions(year, day).includes(solution)) {
-      solution = sol.getSolutions(year, day)[0]
-    }
-  }
+  let link: string | undefined = undefined
 
   $: {
-    if (year && day && solution) {
-      script = inp.getSolution(year, day, solution)
-      input = inp.getInput(year, day)
+    if (year && day) {
+      link = sol.getLink(year, day)
+      if (solution) {
+        script = inp.getSolution(year, day, solution)
+        input = inp.getInput(year, day)
+      }
     }
   }
 </script>
 
-<select bind:value={year}>
-  {#each sol.getYears() as year}
-    <option value={year}>
-      {year}
-    </option>
-  {/each}
-</select>
+<div class="main">
+  <div class="sidebar">
+    <Sidebar>
+      <SolutionSelect bind:year bind:day bind:solution solutions={solutionMap} />
+    </Sidebar>
+  </div>
+  <div class="runner">
+    <Runner {link} {input} {script} />
+  </div>
+</div>
 
-{#if year}
-  <select bind:value={day}>
-    {#each sol.getDays(year) as day}
-      <option value={day}>
-        {day}
-      </option>
-    {/each}
-  </select>
-{/if}
+<style lang="scss">
+  @import 'src/lib/styles/mobile.scss';
 
-{#if year && day}
-  <select bind:value={solution}>
-    {#each sol.getSolutions(year, day) as solution}
-      <option value={solution}>
-        {solution}
-      </option>
-    {/each}
-  </select>
-{/if}
+  .main {
+    display: flex;
+    flex-direction: column;
+    @media screen and (min-width: $screen-sm-min) {
+      flex-direction: row;
+    }
+  }
 
-<Runner {input} {script} />
+  .sidebar {
+    min-width: 8rem;
+  }
+
+  .runner {
+    width: 100%;
+  }
+</style>
